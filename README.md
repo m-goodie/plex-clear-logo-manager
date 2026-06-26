@@ -70,24 +70,6 @@ docker compose -f docker-compose.dev.yml up -d --build
 
 ---
 
-## Versioning & Releases
-
-Images are published automatically to GHCR via GitHub Actions on every push to `main`.
-
-To cut a versioned release:
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-This produces:
-- `ghcr.io/m-goodie/plex-clear-logo-manager:v1.0.0`
-- `ghcr.io/m-goodie/plex-clear-logo-manager:1.0`
-- `ghcr.io/m-goodie/plex-clear-logo-manager:latest`
-
----
-
 ## Data & Caching
 
 All persistent data lives in the `./data` Docker volume:
