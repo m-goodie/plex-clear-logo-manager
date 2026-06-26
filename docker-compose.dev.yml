@@ -1,0 +1,14 @@
+# Use this for local development - builds from source instead of pulling GHCR.
+# Run with: docker compose -f docker-compose.dev.yml up -d --build
+services:
+  plex-logo-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: plex-logo-manager-dev
+    ports:
+      - "8123:8000"
+    volumes:
+      - ./data:/data
+      - /path/to/your/media:/path/to/your/media
+    restart: unless-stopped

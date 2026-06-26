@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plex Clear Logo Manager</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 Plex Clear Logo Manager</h1>
+    <nav>
+      <a href="/" class="nav-active">Browse</a>
+      <a href="/settings">Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    {% if not cfg.plex_url or not cfg.plex_token %}
+      <div class="banner warn">
+        Plex is not configured yet. Go to <a href="/settings">Settings</a> to add your Plex URL and token.
+      </div>
+    {% endif %}
+
+    <div class="controls">
+      <div class="controls-left">
+        <label for="library-select">Library:</label>
+        <select id="library-select"></select>
+        <input type="text" id="search-box" placeholder="Filter by title…">
+      </div>
+      <div class="controls-right">
+        <div class="toggle-group" id="status-filter">
+          <button class="toggle-btn active" data-value="all">All</button>
+          <button class="toggle-btn" data-value="unset">Unset</button>
+          <button class="toggle-btn" data-value="set">Set</button>
+        </div>
+        <button id="refresh-library-btn" class="refresh-btn" title="Re-index this library and re-download all poster thumbnails">↻ Refresh Library</button>
+      </div>
+    </div>
+
+    <div id="grid-status" class="grid-status"></div>
+    <div id="grid" class="grid"></div>
+
+    <!-- Logo picker modal -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <button id="modal-close" class="close-btn">&times;</button>
+        <h2 id="modal-title"></h2>
+        <div id="current-logo" class="current-logo-box none">No clear logo currently set.</div>
+        <div class="modal-filters">
+          <label for="lang-filter" style="font-size:0.85rem;color:var(--text-dim);">Language:</label>
+          <select id="lang-filter"></select>
+          <button id="refresh-logos-btn" class="refresh-btn" title="Re-fetch logos from TMDB/Fanart.tv">↻ Refresh Logos</button>
+        </div>
+        <div id="modal-status" class="status"></div>
+        <div id="logo-grid" class="logo-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

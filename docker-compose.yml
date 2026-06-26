@@ -1,0 +1,12 @@
+services:
+  plex-logo-manager:
+    image: ghcr.io/YOUR_GITHUB_USERNAME/plex-clear-logo-manager:latest
+    container_name: plex-logo-manager
+    ports:
+      - "8123:8000"
+    volumes:
+      - ./data:/data
+      # Mount your media library at the SAME path Plex sees it,
+      # so the app can write clearlogo.png into the right folders.
+      - /path/to/your/media:/path/to/your/media
+    restart: unless-stopped

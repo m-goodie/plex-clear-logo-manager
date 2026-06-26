@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Plex Clear Logo Manager</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 Plex Clear Logo Manager</h1>
+    <nav>
+      <a href="/">Browse</a>
+      <a href="/settings">Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    <form method="post" action="/settings" class="settings-form">
+      <h2>Plex</h2>
+      <label>Plex URL
+        <input type="text" name="plex_url" value="{{ cfg.plex_url }}" placeholder="http://192.168.1.10:32400">
+      </label>
+      <label>Plex Token
+        <input type="text" name="plex_token" value="{{ cfg.plex_token }}" placeholder="X-Plex-Token">
+      </label>
+      <p class="hint">
+        Find your token via Plex's "Get Token" instructions (view source on a media item's XML, or use
+        the official guide: support.plex.tv → "Finding an authentication token / X-Plex-Token").
+      </p>
+
+      <h2>Logo Sources</h2>
+      <label>TMDB API Key
+        <input type="text" name="tmdb_api_key" value="{{ cfg.tmdb_api_key }}" placeholder="TMDB v3 API key">
+      </label>
+      <p class="hint">Get a free key at themoviedb.org → Settings → API.</p>
+
+      <label>Fanart.tv API Key
+        <input type="text" name="fanart_api_key" value="{{ cfg.fanart_api_key }}" placeholder="Fanart.tv personal API key">
+      </label>
+      <p class="hint">Get a free key at fanart.tv → Account → API.</p>
+
+      <label>Preferred Logo Language
+        <input type="text" name="preferred_lang" value="{{ cfg.preferred_lang }}" placeholder="en">
+      </label>
+      <p class="hint">ISO 639-1 code (e.g. "en"). Textless logos are shown right after your preferred language.</p>
+
+      {% if libraries %}
+      <h2>Libraries</h2>
+      <p class="hint">Uncheck a library to hide it from the browse page.</p>
+      <div class="lib-toggle-list">
+        {% for lib in libraries %}
+        <label class="lib-toggle">
+          <input type="checkbox" name="enabled_libraries" value="{{ lib.key }}" {% if lib.enabled %}checked{% endif %}>
+          {{ lib.title }} <span class="lib-type">({{ lib.type }})</span>
+        </label>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <button type="submit">Save Settings</button>
+    </form>
+
+    <div class="note">
+      <strong>Notes:</strong>
+      <ul>
+        <li>This container needs the same volume mount paths as your Plex server so it can write
+            <code>clearlogo.png</code> directly next to your media.</li>
+        <li>Logos are saved as <code>clearlogo.png</code> in the movie's folder, or the show's root folder for TV.</li>
+        <li>After applying a logo, a Plex metadata refresh is triggered automatically for that item.</li>
+        <li>If no local <code>clearlogo.png</code> exists, the app asks Plex what clear logo it's
+            actively showing (e.g. set via Plex Web, an agent, or another tool) and caches that result,
+            so it won't query Plex again on future loads. Poster thumbnails and clear logo status are
+            both cached locally — use "↻ Refresh Library" to re-check everything against Plex.</li>
+      </ul>
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
