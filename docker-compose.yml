@@ -1,6 +1,6 @@
 services:
   plex-logo-manager:
-    image: ghcr.io/YOUR_GITHUB_USERNAME/plex-clear-logo-manager:latest
+    image: ghcr.io/m-goodie/plex-clear-logo-manager:latest
     container_name: plex-logo-manager
     ports:
       - "8123:8000"
