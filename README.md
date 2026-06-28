@@ -4,7 +4,6 @@ A self-hosted web app for managing `clearlogo.png` local media assets across you
 
 Browse your Plex libraries, preview clear logos from **TMDB** and **Fanart.tv**, and write them directly to your media folders so Plex picks them up as local assets.
 
-![Docker Image](https://ghcr.io/m-goodie/plex-clear-logo-manager)
 
 ---
 
